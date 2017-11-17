@@ -56,19 +56,23 @@ Placeholders:
 	
 Variables:
 
-	In machine learning we will typically want a model that can take arbitrary inputs, such as the one above. To make the model trainable, we need to be able to modify the graph to get new outputs with the same input. Variables allow us to add trainable parameters to a graph. They are constructed with a type and initial value.
+	In machine learning we will typically want a model that can take arbitrary inputs, such as the one above. 
+	To make the model trainable, we need to be able to modify the graph to get new outputs with the same input. 
+	Variables allow us to add trainable parameters to a graph. They are constructed with a type and initial value.
 	
 		W = tf.Variable([.3], dtype=tf.float32)
 		b = tf.Variable([-.3], dtype=tf.float32)
 		x = tf.placeholder(tf.float32)
 		linear_model = W*x + b
 	
-	Variables are not initialized when you call tf.Variable. To initialize all the variables in a TensorFlow program, you must explicitly call a special operation as follows:
+	Variables are not initialized when you call tf.Variable. 
+	To initialize all the variables in a TensorFlow program, you must explicitly call a special operation as follows:
 	
 		init = tf.global_variables_initializer()
 		sess.run(init)
 		
-	It is important to realize init is a handle to the TensorFlow sub-graph that initializes all the global variables. Until we call sess.run, the variables are uninitialized.
+	It is important to realize init is a handle to the TensorFlow sub-graph that initializes all the global variables. 
+	Until we call sess.run, the variables are uninitialized.
 	
 	
 	
