@@ -16,9 +16,12 @@ y = tf.placeholder(tf.float32, [None, 10])
 W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))
 
-prediction = tf.nn.softmax(tf.matmul(x, W) + b)
+prediction = tf.nn.softmax(tf.matmul(x, W) + b)   # activation function: softmax function
 
-loss = tf.reduce_mean(tf.square(y-prediction))
+#loss = tf.reduce_mean(tf.square(y-prediction))   # cost function: standard square mean
+
+cross_entropy = -tf.reduce_sum(y * tf.log(prediction), reduction_indices=[1])     # cost function: cross-entropy
+loss = tf.reduce_mean(cross_entropy)
 
 train_step = tf.train.GradientDescentOptimizer(0.2).minimize(loss)
 
@@ -31,7 +34,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 with tf.Session() as sess:
     sess.run(init)
-    for epoch in range(21):
+    for epoch in range(100):
         for batch in range(n_batch):
             batch_xs, batch_ys = mnist.train.next_batch(batch_size)
 
@@ -39,4 +42,3 @@ with tf.Session() as sess:
 
         acc = sess.run(accuracy, feed_dict={x:mnist.test.images, y:mnist.test.labels})
         print("Iter " + str(epoch) + ", Testing Accuracy " + str(acc))
-        
