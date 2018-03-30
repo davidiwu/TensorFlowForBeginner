@@ -44,8 +44,11 @@ man = Celsius2()
 man.temperature = 55
 print(man.to_fahrenheit())
 
-def changeC(cel):  # cel is a reference, change cel in this function will change the object it refer to
-    cel.temperature = 66
+###########
+
+def changeC(cel):  # cel is not a reference !!!
+    #cel.temperature = 66  # this will change the parameter itself
+    cel = Celsius2(66)     # this will generate a new cel, the parameter itself will not be changed thereafter
 
 changeC(man)
 print(man.to_fahrenheit())
@@ -58,13 +61,30 @@ b = 12
 changeA(b)
 print(b)
 
+###########
 def make_sandwich(bread):
     bread.add('eggs')
+    print(bread)
+    print(hex(id(bread)))
     bread = set(['lettuce', 'moya', 'chicken', 'mayo'])
+    print(bread)
+    print(hex(id(bread)))
 
 loaf = set(['wheat', 'soda'])
+print(hex(id(loaf)))
 make_sandwich(loaf)
 print(loaf)
+print(hex(id(loaf)))
+
+###########
+
+def bad_app(item, alist=[]):
+    alist.append(item)
+    return alist
+
+print(bad_app('one'))
+
+print(bad_app('two')) # here will print ['one', 'two']
 
 '''
 a decorator in Python is a callable Python object that is used to modify a function, method or class definition. 
@@ -97,7 +117,7 @@ def fooo(x):
 
 fooo(99)
 
-
+###########
 # counting function calls with decorators
 def call_counter(func):
 
